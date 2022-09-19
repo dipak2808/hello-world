@@ -1,45 +1,22 @@
 const http = require('http')
-const fs = require('fs')
-const events = require('events')
-const url = require("url")
-const newData = 'https://jsonplaceholder.typicode.com/todos/1'
-const em = new events.EventEmitter()
 const port = 3000
-const person = require('./index.js')
-const server = http.createServer((req,res)=>{
-    if (req.url == "/") {
-        res.setHeader("Content-Type", "text/html")
-        res.write("<html><body><p>Hello world</p></body></html>")
-        res.end()
-    }
-    else if (req.url == "/about") {
-        res.setHeader("Content-Type", "text/html")
-        res.write("<html><body><p>Hello world</p></body></html>")
-        res.end()
-    }
-    else if (req.url == "/contact") {
-        res.setHeader("Content-Type", "text/html")
-        res.write("<html><body><p>Hello world</p></body></html>")
-        res.end()
-    }
-    else if (req.url == "/services") {
-        res.setHeader("Content-Type", "text/html")
-        res.write("<html><body><p>Hello world</p></body></html>")
-        res.end()
-    }
-    else{
-        res.setHeader("Content-Type", "text/html")
-        res.write("<html><body><h1>invalied page</h1></body></html>")
-        res.end()
-    }
-    
+const express = require('express')
+const app = express()
 
+const path = require('path')
+const bodyParser = require('body-parser')
 
-
+app.use(bodyParser.urlencoded({ extended: false }));
+app.get('/', (req, res) => {
+    // res.send("<h1>hello world</h1>")/
+  res.sendFile(`${process.cwd()}/index.html`)
 })
-
-
-
- server.listen(port, () => {
+app.post("/home",(req,res)=>{
+res.send('you just call the post method')
+})
+ app.put('/about',(req,res)=>{
+    res.send('yoour page is uptodate')
+ })   
+server = app.listen(port, () => {
     console.log(' server listen at port 3000')
 })
